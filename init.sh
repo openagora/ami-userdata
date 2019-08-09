@@ -10,14 +10,16 @@ rm -rf /usr/local/aws
 rm -rf /usr/bin/aws
 
 #AWSCLI OVERWRITE
-mkdir /tmp/awscli
-cd /tmp/awscli
-curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-unzip awscli-bundle.zip
-./awscli-bundle/install -i /usr/local/aws -b /usr/bin/aws
-cd /tmp
-rm -rf /tmp/awscli
+#mkdir /tmp/awscli
+#cd /tmp/awscli
+#curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+#unzip awscli-bundle.zip
+#./awscli-bundle/install -i /usr/local/aws -b /usr/bin/aws
+#cd /tmp
+#rm -rf /tmp/awscli
 
+yum -y install python-pip 
+pip install awscli --upgrade
 
 
 
