@@ -8,12 +8,12 @@ yum -y update
 rm -rf /usr/local/aws
 rm -rf /usr/bin/aws
 
-yum -y install python-pip 
+#yum -y install python-pip 
 pip install awscli --upgrade
 
 
 # Extension necesario para hashids
-yum -y install php-gmp
+#yum -y install php-gmp
 
 #Creo el INIT y OATOOLS
 rm -rf /openagora
@@ -39,4 +39,5 @@ cd /openagora
 chown ec2-user:ec2-user -R /var/code
 chown ec2-user:ec2-user -R /openagora
  
+#EOF
 shutdown now -r
