@@ -14,12 +14,13 @@ pip install awscli --upgrade
 
 # Extension necesario para hashids
 #yum -y install php-gmp
+#Ami no tiene /var/code
+mkdir /var/code
 
 #Creo el INIT y OATOOLS
 rm -rf /openagora
 mkdir -p /openagora
 cd /openagora
- 
 
 /usr/bin/aws configure set region us-east-1
 /usr/bin/git config --system credential.https://git-codecommit.us-east-1.amazonaws.com.helper '!aws --profile default codecommit credential-helper $@'
