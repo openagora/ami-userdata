@@ -5,17 +5,17 @@
 yum -y update
 
 #cambio awscli
-rm -rf /usr/local/aws
-rm -rf /usr/bin/aws
+#rm -rf /usr/local/aws
+#rm -rf /usr/bin/aws
 
 #yum -y install python-pip 
-pip install awscli --upgrade
+#pip install awscli --upgrade
 
 
 # Extension necesario para hashids
 #yum -y install php-gmp
 #Ami no tiene /var/code
-mkdir /var/code
+mkdir -p /var/code
 
 #Creo el INIT y OATOOLS
 rm -rf /openagora
