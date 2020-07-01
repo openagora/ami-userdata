@@ -2,7 +2,7 @@
 # este script SOLO CORRE en el primer BOOTEO de una instancia, y no en los siguientes reboot
 
 #actualizo la instancia
-yum -y update
+yum -y update --exclude=python*
 
 #cambio awscli
 #rm -rf /usr/local/aws
