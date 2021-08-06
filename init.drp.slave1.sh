@@ -7,4 +7,4 @@
 sleep 300
 
 #una vez terminado lo anterior, modifico el scalingroup del drp y lo dejo en 0
-/usr/bin/aws --profile oa-drp autoscaling update-auto-scaling-group --auto-scaling-group-name oa-drp --min-size 0 --max-size 0 
+/usr/bin/aws --profile oa-drp autoscaling update-auto-scaling-group --auto-scaling-group-name oa-drp-b --min-size 0 --max-size 0 
