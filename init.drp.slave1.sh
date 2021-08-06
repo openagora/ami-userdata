@@ -1,5 +1,8 @@
 #curl -s https://raw.githubusercontent.com/openagora/ami-userdata/master/init.drp.slave1.sh | bash
 
+export AWS_CONFIG_FILE = "/root/.aws/config"
+export AWS_PROFILE = "oa-drp"
+
 #busco el bucket DRP y lo clono
 /usr/bin/aws --profile oa-drp s3 sync s3://oa-drp-master s3://oa-drp-slave1
 
