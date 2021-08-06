@@ -1,7 +1,7 @@
 #curl -s https://raw.githubusercontent.com/openagora/ami-userdata/master/init.drp.slave1.sh | bash
 
 #busco el bucket DRP y lo clono
-/usr/bin/aws --profile oa-drp s3 sync s3://oa-drp-master s://oa-drp-slave1
+/usr/bin/aws --profile oa-drp s3 sync s3://oa-drp-master s3://oa-drp-slave1
 
 #una pausa antes de terminar
 sleep 300
