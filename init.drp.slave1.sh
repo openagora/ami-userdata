@@ -9,4 +9,4 @@ export AWS_CONFIG_FILE = "/root/.aws/config"
 sleep 300
 
 #una vez terminado lo anterior, modifico el scalingroup del drp y lo dejo en 0
-/usr/bin/aws autoscaling update-auto-scaling-group --auto-scaling-group-name oa-drp-autoscallingroup --min-size 0 --max-size 0 
+/usr/bin/aws autoscaling update-auto-scaling-group --auto-scaling-group-name oa-drp-autoscallingroup --min-size 0 --max-size 0 --region us-east-1
