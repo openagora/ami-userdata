@@ -1,6 +1,5 @@
 #curl -s https://raw.githubusercontent.com/openagora/ami-userdata/master/init.drp.slave1.sh | bash
-
-export AWS_CONFIG_FILE = "/root/.aws/config"
+# me basé en https://blogs.tensult.com/2018/08/06/copy-s3-bucket-objects-across-aws-accounts/, pero en vez de usar un usuario en el destino, usé un ROL, y con un template ni siquiera necesito una AMI propia, uso la de AWS
 
 #busco el bucket DRP y lo clono
 /usr/bin/aws s3 sync s3://oa-drp-master s3://oa-drp-slave1 --source-region us-east-1 --region us-east-1
