@@ -27,7 +27,7 @@ mkdir -p /openagora/init
 # /usr/bin/git clone --depth 1 https://git-codecommit.us-east-1.amazonaws.com/v1/repos/oa-init init
  
 
-mkdir -p /openagora/oatools/
+mkdir -p /openagora/oatools
 /usr/bin/tar -C /openagora/oatools -xf  /mnt/efs/init/oatools.tar
 #/usr/bin/git clone --depth 1 https://git-codecommit.us-east-1.amazonaws.com/v1/repos/oatools oatools
  
