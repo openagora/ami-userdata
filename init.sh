@@ -22,10 +22,14 @@ cd /openagora
 /usr/bin/git config --system credential.https://git-codecommit.us-east-1.amazonaws.com.helper '!aws --profile default codecommit credential-helper $@'
 /usr/bin/git config --system credential.https://git-codecommit.us-east-1.amazonaws.com.UseHttpPath true
 
-#no tengo nada que actualizar, lo creo con la ultima version
-/usr/bin/git clone --depth 1 https://git-codecommit.us-east-1.amazonaws.com/v1/repos/oa-init init
+mkdir -p /openagora/init
+/usr/bin/tar -C /openagora/init -xf  /mnt/efs/init/oa-init.tar
+# /usr/bin/git clone --depth 1 https://git-codecommit.us-east-1.amazonaws.com/v1/repos/oa-init init
  
-/usr/bin/git clone --depth 1 https://git-codecommit.us-east-1.amazonaws.com/v1/repos/oatools oatools
+
+mkdir -p /openagora/oatools/
+/usr/bin/tar -C /openagora/oatools -xf  /mnt/efs/init/oatools.tar
+#/usr/bin/git clone --depth 1 https://git-codecommit.us-east-1.amazonaws.com/v1/repos/oatools oatools
  
  
 #lanzo la configuracion INICIAL
