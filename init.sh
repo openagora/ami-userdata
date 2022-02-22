@@ -1,15 +1,6 @@
 #!/bin/bash -e
 # este script SOLO CORRE en el primer BOOTEO de una instancia, y no en los siguientes reboot
 
-#actualizo la instancia
-yum -y update --exclude=python*
-
-
-#Julio2021
-# awscli fue instalado usando pip de python3 para poder tener awscli 2.x
-
-
-
 #Ami no tiene /var/code
 mkdir -p /var/code
 
@@ -17,6 +8,37 @@ mkdir -p /var/code
 rm -rf /openagora
 mkdir -p /openagora
 cd /openagora
+
+
+
+if /sbin/nvme -list | /bin/grep -q "Instance Storage" ; then
+
+mkdir -p /mnt/ephemeral0
+/usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0
+/usr/sbin/mkfs.xfs /dev/nvme1n1
+/usr/bin/mount /dev/nvme1n1 /mnt/ephemeral0/
+
+#el working dir DEBE SER el ephemeral
+mkdir -p /mnt/ephemeral0/workingdir
+/usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0/workingdir
+ln -ls /var/code/workingdir /mnt/ephemeral0/workingdir
+/usr/bin/chown ec2-user:ec2-user /var/code/workingdir
+
+else
+
+#el working dir por defecto estará en el EBS
+mkdir -p /var/code/workingdir
+
+fi
+
+
+#actualizo la instancia
+yum -y update --exclude=python*
+
+
+#Julio2021
+# awscli fue instalado usando pip de python3 para poder tener awscli 2.x
+
 
 /usr/bin/aws configure set region us-east-1
 /usr/bin/git config --system credential.https://git-codecommit.us-east-1.amazonaws.com.helper '!aws --profile default codecommit credential-helper $@'
