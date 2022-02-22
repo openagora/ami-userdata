@@ -22,7 +22,7 @@ mkdir -p /mnt/ephemeral0
 mkdir -p /mnt/ephemeral0/workingdir
 /usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0/workingdir
 ln -s  /mnt/ephemeral0/workingdir /var/code/workingdir
-/usr/bin/chown ec2-user:ec2-user /var/code/workingdir
+/usr/bin/chown -h ec2-user:ec2-user /var/code/workingdir
 
 else
 
