@@ -13,8 +13,7 @@ cd /openagora
 echo "SMALL" > /var/code/WORKER.SIZE
 yum -y install nvme-cli
 mkdir -p /mnt/ephemeral0
-mkdir -p /mnt/ephemeral0/codetmp
-/usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0/codetmp
+
 
 /usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0
 
@@ -35,6 +34,8 @@ echo "/mnt/ephemeral0/tmp /tmp  none rw,noexec,nofail,bind 0 0" |  tee -a /etc/f
 
 
 fi
+mkdir -p /mnt/ephemeral0/codetmp
+/usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0/codetmp
 
 /bin/ln -s  /mnt/ephemeral0/codetmp /var/code/tmp/
 /usr/bin/chown -h ec2-user:ec2-user /var/code/tmp/
