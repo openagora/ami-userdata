@@ -66,6 +66,7 @@ mkdir -p /openagora/oatools
  
 #correccion de propietarios
 chown ec2-user:ec2-user -R /var/code
+chown ec2-user:ec2-user -R /mnt/ephemeral0/codetmp
 chown ec2-user:ec2-user -R /openagora
  
  
