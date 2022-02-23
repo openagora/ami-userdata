@@ -37,8 +37,8 @@ fi
 mkdir -p /mnt/ephemeral0/codetmp
 /usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0/codetmp
 
-/bin/ln -s  /mnt/ephemeral0/codetmp /var/code/tmp/
-/usr/bin/chown -h ec2-user:ec2-user /var/code/tmp/
+/bin/ln -s  /mnt/ephemeral0/codetmp /var/code/tmp
+/usr/bin/chown -h ec2-user:ec2-user /var/code/tmp
 
 
 #actualizo la instancia
