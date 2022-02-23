@@ -11,6 +11,7 @@ cd /openagora
 
 #el working dir por defecto estará en el EBS
 mkdir -p /var/code/workingdir
+echo "SMALL" > /var/code/WORKER.SIZE
 
 yum -y install nvme-cli
 
@@ -18,6 +19,7 @@ if /sbin/nvme -list | /bin/grep -q "Instance Storage" ; then
 #el working dir DEBE SER el ephemeral
 
 rm -rf /var/code/workingdir
+echo "LARGE" > /var/code/WORKER.SIZE
 
 mkdir -p /mnt/ephemeral0
 /usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0
