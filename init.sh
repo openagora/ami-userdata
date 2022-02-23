@@ -24,7 +24,7 @@ echo "LARGE" > /var/code/WORKER.SIZE
 fi
 
 
-mkdir -p /mnt/ephemeral0/tmp
+mkdir -p -m 1777 /mnt/ephemeral0/tmp
 mkdir -p /mnt/ephemeral0/workingdir
 /usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0/workingdir
 /bin/ln -s  /mnt/ephemeral0/workingdir /var/code/workingdir
