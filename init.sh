@@ -13,31 +13,37 @@ cd /openagora
 echo "SMALL" > /var/code/WORKER.SIZE
 yum -y install nvme-cli
 mkdir -p /mnt/ephemeral0
+mkdir -p /mnt/ephemeral0/workingdir
+/usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0/workingdir
+
+/usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0
 
 if /sbin/nvme -list | /bin/grep -q "Instance Storage" ; then
 #el working dir DEBE SER el ephemeral
 echo "LARGE" > /var/code/WORKER.SIZE
-/usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0
-/usr/sbin/mkfs.xfs /dev/nvme1n1
-/usr/bin/mount /dev/nvme1n1 /mnt/ephemeral0/
+
+EPHEMERAL_DISK=$(/sbin/nvme list | grep 'Instance Storage' | awk '{ print $1 }')
+/usr/sbin/mkfs.xfs $EPHEMERAL_DISK
+/usr/bin/mount -t xfs $EPHEMERAL_DISK /mnt/ephemeral0
+
+EPHEMERAL_UUID=$(sudo blkid -s UUID -o value $EPHEMERAL_DISK)
+
+mkdir -p -m 1777 /mnt/ephemeral0/tmp
+
+echo "UUID=$EPHEMERAL_UUID /mnt/ephemeral0 xfs defaults,nofail 0 2" |  tee -a /etc/fstab
+echo "/mnt/ephemeral0/tmp /tmp  none rw,noexec,nofail,bind 0 0" |  tee -a /etc/fstab
+
 
 fi
 
-
-mkdir -p -m 1777 /mnt/ephemeral0/tmp
-mkdir -p /mnt/ephemeral0/workingdir
-/usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0/workingdir
 /bin/ln -s  /mnt/ephemeral0/workingdir /var/code/workingdir
 /usr/bin/chown -h ec2-user:ec2-user /var/code/workingdir
-
 
 #actualizo la instancia
 yum -y update --exclude=python*
 
-
 #Julio2021
 # awscli fue instalado usando pip de python3 para poder tener awscli 2.x
-
 
 /usr/bin/aws configure set region us-east-1
 /usr/bin/git config --system credential.https://git-codecommit.us-east-1.amazonaws.com.helper '!aws --profile default codecommit credential-helper $@'
