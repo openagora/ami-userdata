@@ -9,25 +9,26 @@ rm -rf /openagora
 mkdir -p /openagora
 cd /openagora
 
+#el working dir por defecto estará en el EBS
+mkdir -p /var/code/workingdir
 
+yum -y install nvme-cli
 
 if /sbin/nvme -list | /bin/grep -q "Instance Storage" ; then
+#el working dir DEBE SER el ephemeral
+
+rm -rf /var/code/workingdir
 
 mkdir -p /mnt/ephemeral0
 /usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0
 /usr/sbin/mkfs.xfs /dev/nvme1n1
 /usr/bin/mount /dev/nvme1n1 /mnt/ephemeral0/
 
-#el working dir DEBE SER el ephemeral
+
 mkdir -p /mnt/ephemeral0/workingdir
 /usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0/workingdir
 ln -s  /mnt/ephemeral0/workingdir /var/code/workingdir
 /usr/bin/chown -h ec2-user:ec2-user /var/code/workingdir
-
-else
-
-#el working dir por defecto estará en el EBS
-mkdir -p /var/code/workingdir
 
 fi
 
