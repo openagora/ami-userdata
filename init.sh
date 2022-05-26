@@ -52,9 +52,15 @@ yum -y update --exclude=python*
 /usr/bin/git config --system credential.https://git-codecommit.us-east-1.amazonaws.com.helper '!aws --profile default codecommit credential-helper $@'
 /usr/bin/git config --system credential.https://git-codecommit.us-east-1.amazonaws.com.UseHttpPath true
 
-
-
 mkdir -p /mnt/deploy
+
+umount /mnt/efs
+cat /etc/fstab | grep -v efs > /tmp/fstab
+echo "/mnt/deploy /mnt/efs none bind" >> /tmp/fstab
+rsync -a /tmp/fstab /etc/fstab
+mount /mnt/efs
+
+
 /usr/bin/aws s3 sync s3://oadeploy/ /mnt/deploy/ 
 sleep 2
 /usr/bin/aws s3 sync s3://oadeploy/ /mnt/deploy/ 
