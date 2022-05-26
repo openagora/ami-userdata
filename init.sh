@@ -4,6 +4,7 @@
 #Ami no tiene /var/code
 mkdir -p /var/code
 
+
 #Creo el INIT y OATOOLS
 rm -rf /openagora
 mkdir -p /openagora
@@ -51,13 +52,20 @@ yum -y update --exclude=python*
 /usr/bin/git config --system credential.https://git-codecommit.us-east-1.amazonaws.com.helper '!aws --profile default codecommit credential-helper $@'
 /usr/bin/git config --system credential.https://git-codecommit.us-east-1.amazonaws.com.UseHttpPath true
 
+
+
+mkdir -p /mnt/deploy
+/usr/bin/aws s3 sync s3://oadeploy/ /mnt/deploy/ 
+/usr/bin/chown -h ec2-user:ec2-user -R /mnt/deploy
+
+
 mkdir -p /openagora/init
-/usr/bin/tar -C /openagora/init -xf  /mnt/efs/init/oa-init.tar
+/usr/bin/tar -C /openagora/init -xf  /mnt/deploy/init/oa-init.tar
 # /usr/bin/git clone --depth 1 https://git-codecommit.us-east-1.amazonaws.com/v1/repos/oa-init init
  
 
 mkdir -p /openagora/oatools
-/usr/bin/tar -C /openagora/oatools -xf  /mnt/efs/init/oatools.tar
+/usr/bin/tar -C /openagora/oatools -xf  /mnt/deploy/init/oatools.tar
 #/usr/bin/git clone --depth 1 https://git-codecommit.us-east-1.amazonaws.com/v1/repos/oatools oatools
  
  
