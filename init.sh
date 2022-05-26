@@ -56,6 +56,12 @@ yum -y update --exclude=python*
 
 mkdir -p /mnt/deploy
 /usr/bin/aws s3 sync s3://oadeploy/ /mnt/deploy/ 
+sleep 2
+/usr/bin/aws s3 sync s3://oadeploy/ /mnt/deploy/ 
+sleep 2
+/usr/bin/aws s3 sync s3://oadeploy/ /mnt/deploy/ 
+
+
 /usr/bin/chown -h ec2-user:ec2-user -R /mnt/deploy
 
 
