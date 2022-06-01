@@ -17,9 +17,6 @@ yum -y install nvme-cli
 
 if /sbin/nvme -list | /bin/grep -q "Instance Storage" ; then
 
-  mkdir -p /mnt/ephemeral0
-  /usr/bin/chown ec2-user:ec2-user /mnt/ephemeral0
-
   #el working dir DEBE SER el ephemeral
   echo "LARGE" > /var/code/WORKER.SIZE
 
@@ -52,32 +49,32 @@ yum -y update --exclude=python*
 /usr/bin/git config --system credential.https://git-codecommit.us-east-1.amazonaws.com.helper '!aws --profile default codecommit credential-helper $@'
 /usr/bin/git config --system credential.https://git-codecommit.us-east-1.amazonaws.com.UseHttpPath true
 
-mkdir -p /mnt/deploy
 
-umount /mnt/efs
-cat /etc/fstab | grep -v efs > /tmp/fstab
-echo "/mnt/deploy /mnt/efs none bind" >> /tmp/fstab
-rsync -a /tmp/fstab /etc/fstab
-mount /mnt/efs
+#################
+###### S3FS #####
+
+# basado en:   --- > https://github.com/s3fs-fuse/s3fs-fuse/wiki/Fuse-Over-Amazon
+
+#calculo el ROL de la INSTANCIA
+IAMROLE=$(curl http://169.254.169.254/latest/meta-data/iam/info -s | jq .InstanceProfileArn | xargs basename)
+
+#montaje manual:
+#s3fs oadeploy -o iam_role=${IAMROLE} -o dbglevel=info -o curldbg -o allow_other -o use_cache=/tmp /mnt/s3fs
+
+#montaje por FSTAB:
+echo "s3fs#oadeploy /mnt/s3fs fuse _netdev,allow_other,iam_role=${IAMROLE},use_cache=/tmp,url=https://s3.us-east-1.amazonaws.com 0 0" |  tee -a /etc/fstab
+mount /mnt/s3fs
 
 
-/usr/bin/aws s3 sync s3://oadeploy/ /mnt/deploy/ 
-sleep 2
-/usr/bin/aws s3 sync s3://oadeploy/ /mnt/deploy/ 
-sleep 2
-/usr/bin/aws s3 sync s3://oadeploy/ /mnt/deploy/ 
-
-
-/usr/bin/chown -h ec2-user:ec2-user -R /mnt/deploy
-
+#################
 
 mkdir -p /openagora/init
-/usr/bin/tar -C /openagora/init -xf  /mnt/deploy/init/oa-init.tar
+/usr/bin/tar -C /openagora/init -xf  /mnt/s3fs/init/oa-init.tar
 # /usr/bin/git clone --depth 1 https://git-codecommit.us-east-1.amazonaws.com/v1/repos/oa-init init
  
 
 mkdir -p /openagora/oatools
-/usr/bin/tar -C /openagora/oatools -xf  /mnt/deploy/init/oatools.tar
+/usr/bin/tar -C /openagora/oatools -xf  /mnt/s3fs/init/oatools.tar
 #/usr/bin/git clone --depth 1 https://git-codecommit.us-east-1.amazonaws.com/v1/repos/oatools oatools
  
  
