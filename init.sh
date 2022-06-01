@@ -36,7 +36,8 @@ if /sbin/nvme -list | /bin/grep -q "Instance Storage" ; then
 
   /bin/ln -s  /mnt/ephemeral0/codetmp /var/code/tmp
   /usr/bin/chown -h ec2-user:ec2-user /var/code/tmp
-  
+else
+   rm -rf /mnt/ephemeral0
 fi
 
 #actualizo la instancia
