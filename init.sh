@@ -45,8 +45,8 @@ else
    rm -rf /mnt/ephemeral0
 fi
 
-#actualizo la instancia
-yum -y update --exclude=python*
+#actualizo la instancia (solo parches de seguridad)
+yum -y update --security --exclude=python*
 
 #Julio2021
 # awscli fue instalado usando pip de python3 para poder tener awscli 2.x
