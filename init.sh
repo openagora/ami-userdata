@@ -14,9 +14,9 @@ cd /openagora
 echo "SMALL" > /var/code/WORKER.SIZE
 
 #YUM INSTALL
-yum -y install nvme-cli
-yum -y install sshpass --enablerepo epel
-yum -y install ImageMagick
+#yum -y install nvme-cli
+#yum -y install sshpass --enablerepo epel
+#yum -y install ImageMagick
 
 
 
