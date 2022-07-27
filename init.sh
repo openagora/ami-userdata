@@ -17,8 +17,8 @@ echo "SMALL" > /var/code/WORKER.SIZE
 #yum -y install nvme-cli
 #yum -y install sshpass --enablerepo epel
 #yum -y install ImageMagick
-
-
+yum -y install php-xmlrpc.x86_64
+yum -y install php-sodium.x86_64
 
 if /sbin/nvme -list | /bin/grep -q "Instance Storage" ; then
 
