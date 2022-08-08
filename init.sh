@@ -19,6 +19,7 @@ echo "SMALL" > /var/code/WORKER.SIZE
 #yum -y install ImageMagick
 yum -y install php-xmlrpc.x86_64
 yum -y install php-sodium.x86_64
+yum -y install oathtool --enablerepo=epel 
 
 if /sbin/nvme -list | /bin/grep -q "Instance Storage" ; then
 
