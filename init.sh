@@ -104,7 +104,7 @@ for logfile in $(find /var/log/ -type f )
 do 
   truncate -s 0 $logfile
 done
-truncate -s 0 /home/ec2-user/.bash_history 
+
  
  
 #lanzo la configuracion INICIAL
