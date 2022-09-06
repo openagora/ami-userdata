@@ -17,9 +17,9 @@ echo "SMALL" > /var/code/WORKER.SIZE
 #yum -y install nvme-cli
 #yum -y install sshpass --enablerepo epel
 #yum -y install ImageMagick
-yum -y install php-xmlrpc.x86_64
-yum -y install php-sodium.x86_64
-yum -y install oathtool --enablerepo=epel 
+#yum -y install php-xmlrpc.x86_64
+#yum -y install php-sodium.x86_64
+#yum -y install oathtool --enablerepo=epel 
 
 if /sbin/nvme -list | /bin/grep -q "Instance Storage" ; then
 
@@ -85,52 +85,64 @@ mkdir -p /openagora/oatools
 #/usr/bin/git clone --depth 1 https://git-codecommit.us-east-1.amazonaws.com/v1/repos/oatools oatools
  
  
+# INICIO PHP8
+# INICIO PHP8
+# INICIO PHP8
 
 # Elimino php actual
 #yum remove -y php-* 
 
 # actualizo lo que queda
-yum -y update
-yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm
-yum clean metadata
+#yum -y update
+#yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+#yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+#yum clean metadata
 
 # preparo los repositorios desde donde obtengo los paquetes
-yum-config-manager --disable 'remi-php*'
-amazon-linux-extras disable php7.3 
-yum-config-manager --enable remi-php81
-yum-config-manager --enable epel
+#yum-config-manager --disable 'remi-php*'
+#amazon-linux-extras disable php7.3 
+#yum-config-manager --enable remi-php81
+#yum-config-manager --enable epel
 
 # Cambio prioridades de  remi-php81 , priority=1
 #con esto, podré hacer un DROP-IN REPLACEMENT de los binarios y archivos de configuracion
-sed -i '/^enabled=1/a priority=1' /etc/yum.repos.d/remi-php81.repo  
+#sed -i '/^enabled=1/a priority=1' /etc/yum.repos.d/remi-php81.repo  
 #cat /etc/yum.repos.d/remi-php81.repo 
 
-yum -y  install php-{cli,common,fpm,gd,gmp,intl,json,mbstring,mysqlnd,opcache,pdo,pecl-apcu,pecl-igbinary,pecl-memcached,pecl-msgpack,pecl-redis,pgsql,soap,sodium,xml,xmlrpc}
+#yum -y  install php-{cli,common,fpm,gd,gmp,intl,json,mbstring,mysqlnd,opcache,pdo,pecl-apcu,pecl-igbinary,pecl-memcached,pecl-msgpack,pecl-redis,pgsql,soap,sodium,xml,xmlrpc}
 
 # chao epel
-yum-config-manager --disable epel
+#yum-config-manager --disable epel
+
+# TUNNING
+#opcache.memory_consumption=160
+#sed -i 's/^;opcache.memory_consumption=.*/opcache.memory_consumption=160/g' /etc/php.d/10-opcache.ini 
+
+#opcache.interned_strings_buffer=16
+#sed -i 's/^;opcache.interned_strings_buffer=.*/opcache.interned_strings_buffer=16/g' /etc/php.d/10-opcache.ini 
+
+#opcache.max_accelerated_files=5000
+#sed -i 's/^;opcache.max_accelerated_files=.*/opcache.max_accelerated_files=5000/g' /etc/php.d/10-opcache.ini 
+
+#opcache.huge_code_pages=1
+#sed -i 's/^opcache.huge_code_pages=0/opcache.huge_code_pages=1/g' /etc/php.d/10-opcache.ini 
 
 # Actualizacion de ioncube con Respaldo Manager
 rm /etc/php.d/10-ioncube.ini
 rm /openagora/conf/lib64/ioncube_loader_lin_7.3.so
-rm -rf /home/ec2-user/ioncube
+rm -rf /home/ec2-user/ioncube 
 
-# TUNNING
-#opcache.memory_consumption=160
-sed -i 's/^;opcache.memory_consumption=.*/opcache.memory_consumption=160/g' /etc/php.d/10-opcache.ini 
 
-#opcache.interned_strings_buffer=16
-sed -i 's/^;opcache.interned_strings_buffer=.*/opcache.interned_strings_buffer=16/g' /etc/php.d/10-opcache.ini 
+# FIN PHP8
+# FIN PHP8
+# FIN PHP8
 
-#opcache.max_accelerated_files=5000
-sed -i 's/^;opcache.max_accelerated_files=.*/opcache.max_accelerated_files=5000/g' /etc/php.d/10-opcache.ini 
-
-#opcache.huge_code_pages=1
-sed -i 's/^opcache.huge_code_pages=0/opcache.huge_code_pages=1/g' /etc/php.d/10-opcache.ini 
-
- 
- 
+#limpieza a los LOGS
+for logfile in $(find /var/log/ -type f )
+do 
+  truncate -s 0 $logfile
+done
+truncate -s 0 /home/ec2-user/.bash_history 
  
  
 #lanzo la configuracion INICIAL
