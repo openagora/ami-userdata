@@ -15,11 +15,8 @@ echo "SMALL" > /var/code/WORKER.SIZE
 
 #YUM INSTALL
 #yum -y install nvme-cli
-#yum -y install sshpass --enablerepo epel
-#yum -y install ImageMagick
-yum -y install php-xmlrpc.x86_64
-yum -y install php-sodium.x86_64
-yum -y install oathtool --enablerepo=epel 
+
+
 
 if /sbin/nvme -list | /bin/grep -q "Instance Storage" ; then
 
@@ -83,6 +80,31 @@ mkdir -p /openagora/init
 mkdir -p /openagora/oatools
 /usr/bin/tar -C /openagora/oatools -xf  /mnt/s3fs/init/oatools.tar
 #/usr/bin/git clone --depth 1 https://git-codecommit.us-east-1.amazonaws.com/v1/repos/oatools oatools
+ 
+# INICIO PHP8 PATCH
+# INICIO PHP8 PATCH
+# INICIO PHP8 PATCH
+
+if [ "$(/usr/bin/php -r 'echo PHP_MAJOR_VERSION;')" == "8" ]; then
+	rm /etc/php.d/10-ioncube.ini
+	rm /openagora/conf/lib64/ioncube_loader_lin_7.3.so
+	rm -rf /home/ec2-user/ioncube 
+else  
+  yum -y install php-xmlrpc.x86_64
+  yum -y install php-sodium.x86_64
+  yum -y install oathtool --enablerepo=epel 
+fi;
+
+# FIN PHP8 PATCH
+# FIN PHP8 PATCH
+# FIN PHP8 PATCH
+
+#limpieza a los LOGS
+for logfile in $(find /var/log/ -type f )
+do 
+  truncate -s 0 $logfile
+done
+truncate -s 0 /home/ec2-user/.bash_history 
  
  
 #lanzo la configuracion INICIAL
