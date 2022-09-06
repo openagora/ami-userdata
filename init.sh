@@ -85,11 +85,8 @@ mkdir -p /openagora/oatools
 # INICIO PHP8 PATCH
 # INICIO PHP8 PATCH
 
-if [ "$(/usr/bin/php -r 'echo PHP_MAJOR_VERSION;')" == "8" ]; then
-	rm /etc/php.d/10-ioncube.ini
-	rm /openagora/conf/lib64/ioncube_loader_lin_7.3.so
-	rm -rf /home/ec2-user/ioncube 
-else  
+if [ "$(/usr/bin/php -r 'echo PHP_MAJOR_VERSION;')" == "7" ]; then
+ 
   yum -y install php-xmlrpc.x86_64
   yum -y install php-sodium.x86_64
   yum -y install oathtool --enablerepo=epel 
