@@ -15,7 +15,7 @@ echo "SMALL" > /var/code/WORKER.SIZE
 
 #YUM INSTALL
 #yum -y install nvme-cli
-
+yum -y install graphviz
 
 
 if /sbin/nvme -list | /bin/grep -q "Instance Storage" ; then
