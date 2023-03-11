@@ -103,6 +103,29 @@ do
 done
 
  
+ #ACTUALIZO BOUNCER INICIO
+
+cd /home/ec2-user
+mkdir pgbouncer
+git clone https://github.com/pgbouncer/pgbouncer.git
+cd pgbouncer
+git submodule init
+git submodule update
+./autogen.sh
+
+sudo yum -y install c-ares-devel systemd-devel
+./configure --prefix=/usr/local  --with-systemd --with-cares
+make 
+sudo make install
+cd /home/ec2-user 
+rm -rf pgbouncer
+
+ 
+ 
+ #ACTUALIZO BOUNCER FIN
+ 
+ 
+ 
  
 #lanzo la configuracion INICIAL
 /openagora/init/initAPP.sh initconf
