@@ -20,9 +20,6 @@ sudo mkdir -p /mnt/s3fs
 sudo chown ec2-user:ec2-user /mnt/s3fs 
 
 
-sudo mkdir -p /openagora
-sudo chown ec2-user:ec2-user /openagora/
-
 #calculo el ROL de la INSTANCIA
 IAMROLE=$(curl http://169.254.169.254/latest/meta-data/iam/info -s | jq .InstanceProfileArn | xargs basename)
 
@@ -44,4 +41,14 @@ rm -rf /openagora
 mkdir -p /openagora
 cd /openagora
 
+# Deploy oalmstools
+WKDIR=$(/usr/bin/mktemp -d) && \
+tar -C ${WKDIR}  -xf  /mnt/s3fs/init/oalmstools.tar && \
+rsync -a --delete ${WKDIR}/ /openagora/oalmstools/ && \
+rm -rf ${WKDIR}
 
+# Parche
+mkdir -p /openagora/oatools/bin/
+ln -s /openagora/oalmstools/deploy/oaefsdeploy /openagora/oatools/bin/oaefsdeploy
+
+chown -R ec2-user:ec2-user /openagora
