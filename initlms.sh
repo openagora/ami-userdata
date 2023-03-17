@@ -30,6 +30,14 @@ IAMROLE=$(curl http://169.254.169.254/latest/meta-data/iam/info -s | jq .Instanc
 echo "s3fs#oadeploy /mnt/s3fs fuse _netdev,allow_other,iam_role=${IAMROLE},use_cache=/tmp,url=https://s3.us-east-1.amazonaws.com 0 0" |  tee -a /etc/fstab
 mount /mnt/s3fs
 
+mkdir /tmp/efsutils
+cd /tmp/efsutils
+apt-get -y install git binutils
+git clone https://github.com/aws/efs-utils
+cd efs-utils
+./build-deb.sh
+apt-get -y install ./build/amazon-efs-utils*deb
+
 
 mkdir -p /mnt/efs
 chown ec2-user:ec2-user /mnt/efs 
