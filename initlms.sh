@@ -37,10 +37,6 @@ echo "fs-00256d7508b1fcffe:/ /mnt/efs efs _netdev,noresvport,iam 0 0" |  tee -a 
 mount /mnt/efs
 
 
-# Alias
-alias ll="ls -l"
-
-
 # FIN AMI
 
 #Creo el INIT y OATOOLS
