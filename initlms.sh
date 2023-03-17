@@ -30,6 +30,13 @@ IAMROLE=$(curl http://169.254.169.254/latest/meta-data/iam/info -s | jq .Instanc
 echo "s3fs#oadeploy /mnt/s3fs fuse _netdev,allow_other,iam_role=${IAMROLE},use_cache=/tmp,url=https://s3.us-east-1.amazonaws.com 0 0" |  tee -a /etc/fstab
 mount /mnt/s3fs
 
+
+mkdir -p /mnt/efs
+chown ec2-user:ec2-user /mnt/efs 
+echo "fs-00256d7508b1fcffe:/ /mnt/efs efs _netdev,noresvport,iam 0 0" |  tee -a /etc/fstab
+mount /mnt/efs
+
+
 # Alias
 alias ll="ls -l"
 
