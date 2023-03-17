@@ -31,7 +31,7 @@ echo "s3fs#oadeploy /mnt/s3fs fuse _netdev,allow_other,iam_role=${IAMROLE},use_c
 mount /mnt/s3fs
 
 # Alias
-alias="ls -l"
+alias ll="ls -l"
 
 
 # FIN AMI
