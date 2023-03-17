@@ -11,7 +11,7 @@ wget https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64
 sudo dpkg -i amazon-ssm-agent.deb
 sudo systemctl enable amazon-ssm-agent
 
-sudo groupmod --new-name ec2-user bitnami-admins
+sudo groupmod --new-name ec2-user bitnami
 sudo usermod -l ec2-user bitnami
 sudo usermod -aG sudo ec2-user
 
