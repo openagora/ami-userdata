@@ -29,12 +29,12 @@ IAMROLE=$(curl http://169.254.169.254/latest/meta-data/iam/info -s | jq .Instanc
 #montaje por FSTAB:
 echo "s3fs#oadeploy /mnt/s3fs fuse _netdev,allow_other,iam_role=${IAMROLE},use_cache=/tmp,url=https://s3.us-east-1.amazonaws.com 0 0" |  tee -a /etc/fstab
 mount /mnt/s3fs
+
+# Alias
+alias="ls -l"
+
+
 # FIN AMI
-
-
-#Ami no tiene /var/code
-mkdir -p /var/code
-
 
 #Creo el INIT y OATOOLS
 rm -rf /openagora
@@ -49,6 +49,6 @@ rm -rf ${WKDIR}
 
 # Parche
 mkdir -p /openagora/oatools/bin/
-ln -s /openagora/oalmstools/deploy/oaefsdeploy /openagora/oatools/bin/oaefsdeploy
+ln -s /openagora/oalmstools/deploy/oaefsdeploy.sh /openagora/oatools/bin/oaefsdeploy
 
 chown -R ec2-user:ec2-user /openagora
