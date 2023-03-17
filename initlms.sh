@@ -13,7 +13,7 @@ sudo systemctl enable amazon-ssm-agent
 
 sudo groupmod --new-name ec2-user bitnami-admins
 sudo usermod -l ec2-user bitnami
-usermod -aG sudo ec2-user
+sudo usermod -aG sudo ec2-user
 
 
 sudo mkdir -p /mnt/s3fs
