@@ -41,7 +41,7 @@ apt-get -y install ./build/amazon-efs-utils*deb
 
 mkdir -p /mnt/efs
 chown ec2-user:ec2-user /mnt/efs 
-echo "fs-00256d7508b1fcffe:/ /mnt/efs efs _netdev,noresvport,iam 0 0" |  tee -a /etc/fstab
+echo "fs-00256d7508b1fcffe:/ /mnt/efs efs _netdev,noresvport,tls,iam 0 0" |  tee -a /etc/fstab
 mount /mnt/efs
 
 
