@@ -1,6 +1,17 @@
 #!/bin/bash -e
 # este script SOLO CORRE en el primer BOOTEO de una instancia, y no en los siguientes reboot
 
+# Para poder usar "/usr/local/bin/aws-metadata"
+cd 
+mkdir wkdir
+cd wkdir
+wget https://raw.githubusercontent.com/openagora/ami-userdata/master/tools/aws-metadata 
+chmod +x aws-metadata
+mv aws-metadata /usr/local/bin
+cd
+rm -rf wkdir
+
+
 #Ami no tiene /var/code
 mkdir -p /var/code
 
