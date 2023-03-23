@@ -101,6 +101,9 @@ if [ "$(/usr/bin/php -r 'echo PHP_MAJOR_VERSION;')" == "7" ]; then
   yum -y install php-xmlrpc.x86_64
   yum -y install php-sodium.x86_64
   yum -y install oathtool --enablerepo=epel 
+else  
+  yum -y remove libzip
+  yum -y install php-pecl-zip
 fi;
 
 # FIN PHP8 PATCH
