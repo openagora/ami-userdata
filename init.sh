@@ -27,6 +27,10 @@ echo "SMALL" > /var/code/WORKER.SIZE
 #YUM INSTALL
 #yum -y install nvme-cli
 #yum -y install graphviz
+# inicio R
+amazon-linux-extras install -y R4
+/usr/bin/Rscript -e "install.packages(c('betareg', 'jsonlite', 'readr','stats4','betareg','StepBeta','logger', 'remotes','base64enc'), repos = 'https://packagemanager.rstudio.com/all/__linux__/centos7/latest')"
+# fin R
 
 
 if /sbin/nvme -list | /bin/grep -q "Instance Storage" ; then
