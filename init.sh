@@ -151,6 +151,10 @@ chown ec2-user:ec2-user -R /openagora
 
 #suponiendo que existe
 chown ec2-user:ec2-user -R /mnt/ephemeral0/codetmp
+
+#habilito acceso desde yoda
+aws s3 cp s3://bakery-out/yoda/ssh/id_rsa.pub /tmp/id_rsa.pub
+cat /tmp/id_rsa.pub >> /home/ec2-user/.ssh/authorized_keys
  
 #Borro el bash_history
 cat /dev/null > ~/.bash_history && history -c
