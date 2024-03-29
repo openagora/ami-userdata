@@ -101,6 +101,10 @@ chown ec2-user:ec2-user -R /mnt/ephemeral0/codetmp
 cat /dev/null > ~/.bash_history && history -c
 rm -rf /home/ec2-user/.bash_history
   
+
+#para que C9 parta
+yum install glibc-static
+dnf install python3-pip
  
 #EOF
 shutdown now -r
