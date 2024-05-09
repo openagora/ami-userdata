@@ -138,7 +138,9 @@ rm -rf pgbouncer
  
  
  #ACTUALIZO BOUNCER FIN
+
  
+ sudo yum  -y install parallel
  
  
  
