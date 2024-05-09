@@ -105,6 +105,8 @@ rm -rf /home/ec2-user/.bash_history
 #para que C9 parta
 yum  -y install glibc-static
 dnf  -y install python3-pip
+
+yum  -y install parallel
  
 #EOF
 shutdown now -r
