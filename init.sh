@@ -122,7 +122,8 @@ done
 
 cd /home/ec2-user
 mkdir pgbouncer
-git clone https://github.com/pgbouncer/pgbouncer.git
+#git clone https://github.com/pgbouncer/pgbouncer.git 
+git clone https://github.com/pgbouncer/pgbouncer.git --branch "stable-1.19"
 cd pgbouncer
 git submodule init
 git submodule update
