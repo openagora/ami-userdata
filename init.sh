@@ -99,12 +99,12 @@ mkdir -p /openagora/oatools
 
 if [ "$(/usr/bin/php -r 'echo PHP_MAJOR_VERSION;')" == "7" ]; then
  
-  #yum -y install php-xmlrpc.x86_64   #Eliminado por v706
-  #yum -y install php-sodium.x86_64   #Eliminado por v706
-  #yum -y install oathtool --enablerepo=epel  #Eliminado por v706
+  yum -y install php-xmlrpc.x86_64   
+  yum -y install php-sodium.x86_64   
+  yum -y install oathtool --enablerepo=epel  
 else  
-  #yum -y remove libzip #Eliminado por v806
-  #yum -y install php-pecl-zip #Eliminado por v806
+  yum -y remove libzip 
+  yum -y install php-pecl-zip 
 fi;
 
 # FIN PHP8 PATCH
@@ -120,20 +120,20 @@ done
  
 ## ACTUALIZO BOUNCER INICIO #Eliminado por v706 & 806
 
-## cd /home/ec2-user
-## mkdir pgbouncer
-## git clone https://github.com/pgbouncer/pgbouncer.git --branch "stable-1.19"
-## cd pgbouncer
-## git submodule init
-## git submodule update
-## ./autogen.sh
+ cd /home/ec2-user
+ mkdir pgbouncer
+ git clone https://github.com/pgbouncer/pgbouncer.git --branch "stable-1.19"
+ cd pgbouncer
+ git submodule init
+ git submodule update
+ ./autogen.sh
 
-## sudo yum -y install c-ares-devel systemd-devel
-## ./configure --prefix=/usr/local  --with-systemd --with-cares
-## make 
-## sudo make install
-## cd /home/ec2-user 
-## rm -rf pgbouncer
+sudo yum -y install c-ares-devel systemd-devel
+./configure --prefix=/usr/local  --with-systemd --with-cares
+ make 
+ sudo make install
+cd /home/ec2-user 
+rm -rf pgbouncer
  
 ## ACTUALIZO BOUNCER FIN #Eliminado por v706  & 806
 
@@ -141,8 +141,8 @@ done
 # sudo yum  -y install parallel --enablerepo=epel  #Eliminado por v706
  
 
-# /usr/bin/Rscript -e "install.packages(c('dplyr'), repos = 'https://packagemanager.rstudio.com/all/__linux__/centos7/latest')" #Eliminado por v706  & 806
-# /usr/bin/Rscript -e "install.packages(c('MASS'), repos = 'https://packagemanager.posit.co/cran/2022-05-04/')" #Eliminado por v706  & 806
+ /usr/bin/Rscript -e "install.packages(c('dplyr'), repos = 'https://packagemanager.rstudio.com/all/__linux__/centos7/latest')" #Eliminado por v706  & 806
+ /usr/bin/Rscript -e "install.packages(c('MASS'), repos = 'https://packagemanager.posit.co/cran/2022-05-04/')" #Eliminado por v706  & 806
 
 
  
