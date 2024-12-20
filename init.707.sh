@@ -2,7 +2,7 @@
 # este script SOLO CORRE en el primer BOOTEO de una instancia, y no en los siguientes reboot
 
 # Para poder usar "/usr/local/bin/aws-metadata"
-cd 
+cd /root
 mkdir wkdir
 cd wkdir
 wget https://raw.githubusercontent.com/openagora/ami-userdata/master/tools/aws-metadata 
@@ -97,15 +97,15 @@ mkdir -p /openagora/oatools
 # INICIO PHP8 PATCH
 # INICIO PHP8 PATCH
 
-if [ "$(/usr/bin/php -r 'echo PHP_MAJOR_VERSION;')" == "7" ]; then
+## if [ "$(/usr/bin/php -r 'echo PHP_MAJOR_VERSION;')" == "7" ]; then
  
-  #yum -y install php-xmlrpc.x86_64   
-  #yum -y install php-sodium.x86_64   
-  #yum -y install oathtool --enablerepo=epel  
-else  
-  yum -y remove libzip 
-  yum -y install php-pecl-zip 
-fi;
+  ## yum -y install php-xmlrpc.x86_64   
+  ## yum -y install php-sodium.x86_64   
+  ## yum -y install oathtool --enablerepo=epel  
+## else  
+ ##  yum -y remove libzip 
+ ##  yum -y install php-pecl-zip 
+## fi;
 
 # FIN PHP8 PATCH
 # FIN PHP8 PATCH
