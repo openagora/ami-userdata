@@ -139,7 +139,8 @@ done
 
  
 # sudo yum  -y install parallel --enablerepo=epel  
- 
+echo "will cite"| parallel --citation
+
 
 #/usr/bin/Rscript -e "install.packages(c('dplyr'), repos = 'https://packagemanager.rstudio.com/all/__linux__/centos7/latest')" 
 #/usr/bin/Rscript -e "install.packages(c('MASS'), repos = 'https://packagemanager.posit.co/cran/2022-05-04/')" 
