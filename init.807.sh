@@ -139,6 +139,11 @@ done
 
  
 # sudo yum  -y install parallel --enablerepo=epel  
+
+# para soportar nuevos worker/capataz
+sudo yum  -y install php-posix
+
+
 echo "will cite"| parallel --citation
 
 
