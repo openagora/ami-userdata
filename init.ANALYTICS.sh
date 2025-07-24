@@ -11,16 +11,27 @@ exec 2>&1
 
 echo "Iniciando proceso de ENI attach para instancia: $INSTANCE_ID"
 
-# 1. Detach forzoso del ENI (sin importar dónde esté)
-echo "Haciendo detach forzoso del ENI..."
-aws ec2 detach-network-interface \
-    --network-interface-id $ENI_ID \
+# 1. Obtener attachment-id del ENI (si está attached)
+echo "Verificando estado del ENI..."
+ATTACHMENT_ID=$(aws ec2 describe-network-interfaces \
+    --network-interface-ids $ENI_ID \
     --region $REGION \
-    --force || echo "ENI ya estaba detached o error en detach"
+    --query 'NetworkInterfaces[0].Attachment.AttachmentId' \
+    --output text)
 
-# 2. Esperar un poco para que el detach se complete
-echo "Esperando 10 segundos..."
-sleep 10
+# 2. Detach solo si está attached
+if [ "$ATTACHMENT_ID" != "None" ] && [ "$ATTACHMENT_ID" != "" ]; then
+    echo "ENI está attached con ID: $ATTACHMENT_ID"
+    echo "Haciendo detach forzoso..."
+    aws ec2 detach-network-interface \
+        --attachment-id $ATTACHMENT_ID \
+        --region $REGION \
+        --force
+    echo "Esperando que el detach se complete..."
+    sleep 15
+else
+    echo "ENI ya estaba detached"
+fi
 
 # 3. Attach a esta instancia
 echo "Attachando ENI a esta instancia..."
@@ -30,13 +41,14 @@ aws ec2 attach-network-interface \
     --device-index 1 \
     --region $REGION
 
-# 4. Verificar que se attachó correctamente
+# 4. Verificar y configurar la interfaz
 if [ $? -eq 0 ]; then
     echo "ENI attachado exitosamente"
-    # Configurar la interfaz de red en el OS
-    sudo dhclient eth1
+    # Esperar un poco y configurar la interfaz
+    sleep 5
+    sudo dhclient eth1 2>/dev/null || sudo dhclient ens6 2>/dev/null
+    echo "Interfaz de red configurada"
 else
     echo "Error al attachar ENI"
     exit 1
 fi
-
