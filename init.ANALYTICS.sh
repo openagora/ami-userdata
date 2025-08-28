@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Instalando Faltantes (mover a la AMI despues)
-pip3 install boto3
+#pip3 install boto3
 
 # Variables
 ENI_ID="eni-0a85634f86e7cc2a3"  # ENI
