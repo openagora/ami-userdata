@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 # este script SOLO CORRE en el primer BOOTEO de una instancia, y no en los siguientes reboot
 
 # Para poder usar "/usr/local/bin/aws-metadata"
