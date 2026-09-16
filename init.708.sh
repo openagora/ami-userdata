@@ -77,7 +77,7 @@ IAMROLE=$(curl http://169.254.169.254/latest/meta-data/iam/info -s | jq .Instanc
 #montaje por FSTAB:
 #echo "s3fs#oadeploy /mnt/s3fs fuse _netdev,allow_other,iam_role=${IAMROLE},use_cache=/tmp,url=https://s3.us-east-1.amazonaws.com 0 0" |  tee -a /etc/fstab
 mkdir -p /var/cache/s3fs
-echo "s3fs#oadeploy /mnt/s3fs fuse _netdev,allow_other,iam_role=${IAMROLE},use_cache=/var/cache/s3fs,ensure_diskfree=4096,url=https://s3.us-east-1.amazonaws.com 0 0" |  tee -a /etc/fstab
+echo "s3fs#oadeploy /mnt/s3fs fuse _netdev,allow_other,iam_role=${IAMROLE},use_cache=/tmp,ensure_diskfree=4096,url=https://s3.us-east-1.amazonaws.com 0 0" |  tee -a /etc/fstab
 
 mount /mnt/s3fs
 
