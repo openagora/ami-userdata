@@ -55,6 +55,10 @@ fi
 #actualizo la instancia (solo parches de seguridad)
 yum -y update --security --exclude=python*
 
+# rdfind: deduplica POR CONTENIDO los árboles inmutables
+yum -y install rdfind --enablerepo=epel
+
+
 #Julio2021
 # awscli fue instalado usando pip de python3 para poder tener awscli 2.x
 
