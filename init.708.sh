@@ -57,7 +57,7 @@ yum -y update --security --exclude=python*
 
 # rdfind: deduplica POR CONTENIDO los árboles inmutables
 yum -y install rdfind --enablerepo=epel
-
+yum -y install cmake
 
 #Julio2021
 # awscli fue instalado usando pip de python3 para poder tener awscli 2.x
